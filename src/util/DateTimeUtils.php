@@ -11,12 +11,7 @@ final class DateTimeUtils
     {
     }
 
-    /**
-     * @param int|string $var
-     * @param string $pattern
-     * @return string
-     */
-    public static function format($var, string $pattern = DateTimeFormat::FULL): string
+    public static function format(int|string $var, string $pattern = DateTimeFormat::FULL): string
     {
         if (!is_int($var) && !is_string($var)) {
             return '';
@@ -35,11 +30,7 @@ final class DateTimeUtils
         return date($pattern, $ts);
     }
 
-    /**
-     * @param int|string|null $arg0
-     * @return string
-     */
-    public static function getWeekDayName($arg0 = null): string
+    public static function getWeekDayName(int|string|null $arg0 = null): string
     {
         if (is_int($arg0) && $arg0 > 0) {
             $ts = $arg0;
@@ -67,11 +58,7 @@ final class DateTimeUtils
         return $weekDays[$idx];
     }
 
-    /**
-     * @param int|string|null $arg0
-     * @return array
-     */
-    public static function getDaysOfCurrentWeek($arg0 = null): array
+    public static function getDaysOfCurrentWeek(int|string|null $arg0 = null): array
     {
         if (is_int($arg0) && $arg0 > 0) {
             $ts = $arg0;
@@ -103,11 +90,7 @@ final class DateTimeUtils
         return $days;
     }
 
-    /**
-     * @param int|string|null $arg0
-     * @return array
-     */
-    public static function getDaysOfPreviousWeek($arg0 = null): array
+    public static function getDaysOfPreviousWeek(int|string|null $arg0 = null): array
     {
         if (is_int($arg0) && $arg0 > 0) {
             $ts = $arg0;
@@ -134,11 +117,7 @@ final class DateTimeUtils
         return $days;
     }
 
-    /**
-     * @param int|string|null $arg0
-     * @return array
-     */
-    public static function getDaysOfCurrentMonth($arg0 = null): array
+    public static function getDaysOfCurrentMonth(int|string|null $arg0 = null): array
     {
         if (is_int($arg0) && $arg0 > 0) {
             $ts = $arg0;
@@ -167,11 +146,7 @@ final class DateTimeUtils
         return $days;
     }
 
-    /**
-     * @param int|string|null $arg0
-     * @return array
-     */
-    public static function getDaysOfPreviousMonth($arg0 = null): array
+    public static function getDaysOfPreviousMonth(int|string|null $arg0 = null): array
     {
         if (is_int($arg0) && $arg0 > 0) {
             $ts = $arg0;
@@ -200,12 +175,7 @@ final class DateTimeUtils
         return $days;
     }
 
-    /**
-     * @param int|string|null $arg0
-     * @param int|string $arg1
-     * @return array
-     */
-    public static function getDaysBetweenTwoDay($arg0, $arg1): array
+    public static function getDaysBetweenTwoDay(int|string $arg0, int|string $arg1): array
     {
         if (is_int($arg0) && $arg0 > 0) {
             $ts1 = $arg0;
@@ -252,11 +222,7 @@ final class DateTimeUtils
         return $days;
     }
 
-    /**
-     * @param int|string|null $arg0
-     * @return string
-     */
-    public static function toFriendlyString($arg0 = null): string
+    public static function toFriendlyString(int|string|null $arg0 = null): string
     {
         if (is_int($arg0) && $arg0 > 0) {
             $ts1 = $arg0;

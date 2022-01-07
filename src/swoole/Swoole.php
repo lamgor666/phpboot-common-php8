@@ -38,7 +38,7 @@ final class Swoole
 
                 try {
                     $server->$tableName = SwooleTable::buildTable($columns);
-                } catch (Throwable $ex) {
+                } catch (Throwable) {
                 }
 
                 break;
@@ -49,7 +49,7 @@ final class Swoole
 
                 try {
                     $server->$tableName = SwooleTable::buildTable($columns, 2048);
-                } catch (Throwable $ex) {
+                } catch (Throwable) {
                 }
 
                 break;
@@ -63,7 +63,7 @@ final class Swoole
 
                 try {
                     $server->$tableName = SwooleTable::buildTable($columns, 2048);
-                } catch (Throwable $ex) {
+                } catch (Throwable) {
                 }
 
                 break;
@@ -78,7 +78,7 @@ final class Swoole
 
                 try {
                     $server->$tableName = SwooleTable::buildTable($columns, 40960);
-                } catch (Throwable $ex) {
+                } catch (Throwable) {
                 }
 
                 break;
@@ -91,7 +91,7 @@ final class Swoole
             return false;
         }
 
-        return strpos(get_class($arg0), "Swoole\\Http\\Request") !== false;
+        return str_contains(get_class($arg0), "Swoole\\Http\\Request");
     }
 
     public static function isSwooleHttpResponse($arg0): bool
@@ -100,7 +100,7 @@ final class Swoole
             return false;
         }
 
-        return strpos(get_class($arg0), "Swoole\\Http\\Response") !== false;
+        return str_contains(get_class($arg0), "Swoole\\Http\\Response");
     }
 
     public static function getWorkerId(): int
@@ -138,7 +138,7 @@ final class Swoole
             /** @noinspection PhpFullyQualifiedNameUsageInspection */
             $cid = \Swoole\Coroutine::getCid();
             return is_int($cid) && $cid >= 0 ? $cid : -1;
-        } catch (Throwable $ex) {
+        } catch (Throwable) {
             return -1;
         }
     }

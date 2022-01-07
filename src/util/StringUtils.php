@@ -104,17 +104,11 @@ final class StringUtils
             $type = RandomStringType::DEFAULT;
         }
 
-        switch ($type) {
-            case RandomStringType::ALPHA:
-                $seeds = 'ABCDEFGHJKLMNPQRSTUVWXYYXWVUTSRQPNMLKJHGFEDCBA';
-                break;
-            case RandomStringType::ALNUM:
-                $seeds = '0123456789';
-                break;
-            default:
-                $seeds = 'ABCDEFGHJKLMNPQRSTUVWXY34567899876543YXWVUTSRQPNMLKJHGFEDCBA';
-                break;
-        }
+        $seeds = match ($type) {
+            RandomStringType::ALPHA => 'ABCDEFGHJKLMNPQRSTUVWXYYXWVUTSRQPNMLKJHGFEDCBA',
+            RandomStringType::ALNUM => '0123456789',
+            default => 'ABCDEFGHJKLMNPQRSTUVWXY34567899876543YXWVUTSRQPNMLKJHGFEDCBA',
+        };
 
         $n1 = strlen($seeds) - 1;
         $sb = [];
@@ -210,7 +204,7 @@ final class StringUtils
             }
 
             return DateTime::createFromFormat('Y-m-d H:i:s', $timeStr, $tz);
-        } catch (Throwable $ex) {
+        } catch (Throwable) {
             return null;
         }
     }
@@ -291,7 +285,7 @@ final class StringUtils
             return false;
         }
 
-        if (strpos($str, '@') === false) {
+        if (!str_contains($str, '@')) {
             return false;
         }
 
@@ -300,7 +294,7 @@ final class StringUtils
         if (count($parts) !== 2 ||
             empty($parts[0]) ||
             empty($parts[1]) ||
-            strpos($parts[1], '.') === false ||
+            !str_contains($parts[1], '.') ||
             self::startsWith($parts[1], '.') ||
             self::endsWith($parts[1], '.')) {
             return false;
@@ -528,10 +522,6 @@ final class StringUtils
             return [];
         }
 
-        if (version_compare(PHP_VERSION, '8.0.0') === -1) {
-            libxml_disable_entity_loader(true);
-        }
-
         $element = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
         return $element instanceof SimpleXMLElement ? get_object_vars($element) : [];
     }
@@ -677,11 +667,7 @@ final class StringUtils
         return mb_substr($str, 0, $len - $n, $encoding) . $suffix;
     }
 
-    /**
-     * @param string|array $var
-     * @return string|array
-     */
-    public static function removeSqlSpecialChars($var)
+    public static function removeSqlSpecialChars(string|array $var): string|array
     {
         if (is_array($var)) {
             foreach ($var as $key => $item) {

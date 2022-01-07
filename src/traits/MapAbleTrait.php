@@ -21,10 +21,10 @@ trait MapAbleTrait
             $pname = $key;
             $needUcwords = false;
 
-            if (strpos($pname, '-') !== false) {
+            if (str_contains($pname, '-')) {
                 $pname = str_replace('-', ' ', $pname);
                 $needUcwords = true;
-            } else if (strpos($pname, '_') !== false) {
+            } else if (str_contains($pname, '_')) {
                 $pname = str_replace('_', ' ', $pname);
                 $needUcwords = true;
             }
@@ -62,7 +62,7 @@ trait MapAbleTrait
 
             try {
                 $this->$pname = $value;
-            } catch (Throwable $ex) {
+            } catch (Throwable) {
             }
         }
     }
@@ -71,7 +71,7 @@ trait MapAbleTrait
     {
         try {
             $clazz = new ReflectionClass(StringUtils::ensureLeft(get_class($this), "\\"));
-        } catch (Throwable $ex) {
+        } catch (Throwable) {
             $clazz = null;
         }
 
@@ -90,7 +90,7 @@ trait MapAbleTrait
 
             try {
                 $value = $this->$propertyName;
-            } catch (Throwable $ex) {
+            } catch (Throwable) {
                 continue;
             }
 

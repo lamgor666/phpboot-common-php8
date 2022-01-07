@@ -8,15 +8,8 @@ use phpboot\common\util\StringUtils;
 
 final class AppConf
 {
-    /**
-     * @var string
-     */
-    private static $env = 'dev';
-
-    /**
-     * @var array
-     */
-    private static $data = [];
+    private static string $env = 'dev';
+    private static array $data = [];
 
     public static function setEnv(string $env): void
     {
@@ -42,7 +35,7 @@ final class AppConf
 
     public static function get(string $key)
     {
-        if (strpos($key, '.') === false) {
+        if (!str_contains($key, '.')) {
             return self::getValueInternal($key);
         }
 

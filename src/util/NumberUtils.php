@@ -8,20 +8,12 @@ final class NumberUtils
     {
     }
 
-    /**
-     * @param int|float|string $arg0
-     * @return bool
-     */
-    public static function isZero($arg0): bool
+    public static function isZero(int|float|string $arg0): bool
     {
         return bcadd($arg0, 0, 2) === '0.00';
     }
 
-    /**
-     * @param int|float|string $arg0
-     * @return bool
-     */
-    public static function isNegative($arg0): bool
+    public static function isNegative(int|float|string $arg0): bool
     {
         return StringUtils::startsWith(bcadd($arg0, 0, 2), '-');
     }

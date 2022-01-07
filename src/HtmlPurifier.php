@@ -11,11 +11,7 @@ final class HtmlPurifier
     {
     }
 
-    /**
-     * @param string|array $arg0
-     * @return array|int|string
-     */
-    public static function purify($arg0)
+    public static function purify(string|array $arg0): array|int|string
     {
         if (!is_string($arg0) && !is_array($arg0)) {
             return $arg0;

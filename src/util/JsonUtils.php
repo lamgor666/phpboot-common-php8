@@ -10,11 +10,7 @@ final class JsonUtils
     {
     }
 
-    /**
-     * @param mixed $arg0
-     * @return array|stdClass
-     */
-    public static function mapFrom($arg0)
+    public static function mapFrom($arg0): array|stdClass
     {
         if (!is_string($arg0) || empty($arg0)) {
             return new stdClass();

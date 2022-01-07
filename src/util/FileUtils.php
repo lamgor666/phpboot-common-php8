@@ -40,7 +40,7 @@ final class FileUtils
 
     public static function getExtension(string $filepath): string
     {
-        if (strpos($filepath, '.') === false) {
+        if (!str_contains($filepath, '.')) {
             return '';
         }
 
@@ -74,7 +74,7 @@ final class FileUtils
             return '';
         }
 
-        return strpos($mimeType, ';') !== false ? StringUtils::substringBefore($mimeType, ';') : $mimeType;
+        return str_contains($mimeType, ';') ? StringUtils::substringBefore($mimeType, ';') : $mimeType;
     }
 
     public static function getRealpath(string $path): string

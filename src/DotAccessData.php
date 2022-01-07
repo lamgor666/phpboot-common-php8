@@ -7,10 +7,7 @@ use phpboot\common\util\StringUtils;
 
 final class DotAccessData
 {
-    /**
-     * @var array
-     */
-    private $data;
+    private array $data;
 
     private function __construct(array $data)
     {
@@ -39,7 +36,7 @@ final class DotAccessData
 
     public function get(string $key)
     {
-        if (strpos($key, '.') === false) {
+        if (!str_contains($key, '.')) {
             return $this->getValueInternal($key);
         }
 

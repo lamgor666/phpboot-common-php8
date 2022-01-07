@@ -29,7 +29,7 @@ final class ArrayUtils
         foreach ($arr as $it) {
             try {
                 $flag = $callback($it);
-            } catch (Throwable $ex) {
+            } catch (Throwable) {
                 $flag = false;
             }
 
@@ -61,7 +61,7 @@ final class ArrayUtils
 
             try {
                 $flag = $callback($it);
-            } catch (Throwable $ex) {
+            } catch (Throwable) {
                 $flag = false;
             }
 
@@ -109,10 +109,10 @@ final class ArrayUtils
             $newKey = $key;
             $needUcwords = false;
 
-            if (strpos($newKey, '-') !== false) {
+            if (str_contains($newKey, '-')) {
                 $newKey = str_replace('-', ' ', $newKey);
                 $needUcwords = true;
-            } else if (strpos($newKey, '_') !== false) {
+            } else if (str_contains($newKey, '_')) {
                 $newKey = str_replace('_', ' ', $newKey);
                 $needUcwords = true;
             }
@@ -132,12 +132,7 @@ final class ArrayUtils
         return $arr;
     }
 
-    /**
-     * @param array $arr
-     * @param string|array $keys
-     * @return array
-     */
-    public static function removeKeys(array $arr, $keys): array
+    public static function removeKeys(array $arr, array|string $keys): array
     {
         if (is_string($keys) && $keys !== '') {
             $keys = preg_split('/[\x20\t]*,[\x20\t]*/', $keys);
@@ -275,12 +270,7 @@ final class ArrayUtils
         return implode('', $sb);
     }
 
-    /**
-     * @param array $arr
-     * @param string[]|string $rules
-     * @return array
-     */
-    public static function requestParams(array $arr, $rules): array
+    public static function requestParams(array $arr, array|string $rules): array
     {
         if (is_string($rules) && $rules !== '') {
             $rules = preg_split('/[\x20\t]*,[\x20\t]*/', $rules);
@@ -328,7 +318,7 @@ final class ArrayUtils
 
                     break;
                 case 2:
-                    if (strpos($rule, ':') !== false) {
+                    if (str_contains($rule, ':')) {
                         $defaultValue = StringUtils::substringAfterLast($rule, ':');
                         $defaultValue = StringUtils::isInt($defaultValue) ? (int) $defaultValue : PHP_INT_MIN;
                         $s1 = StringUtils::substringBeforeLast($rule, ':');
@@ -339,7 +329,7 @@ final class ArrayUtils
                     $defaultValue = is_int($defaultValue) ? $defaultValue : PHP_INT_MIN;
                     break;
                 case 3:
-                    if (strpos($rule, ':') !== false) {
+                    if (str_contains($rule, ':')) {
                         $defaultValue = StringUtils::substringAfterLast($rule, ':');
                         $defaultValue = StringUtils::isFloat($defaultValue) ? bcadd($defaultValue, 0, 2) : null;
                         $s1 = StringUtils::substringBeforeLast($rule, ':');
@@ -355,7 +345,7 @@ final class ArrayUtils
                 continue;
             }
 
-            if (strpos($s1, '#') !== false) {
+            if (str_contains($s1, '#')) {
                 $mapKey = StringUtils::substringBefore($s1, '#');
                 $dstKey = StringUtils::substringAfter($s1, '#');
             } else {
@@ -386,12 +376,7 @@ final class ArrayUtils
         return $map1;
     }
 
-    /**
-     * @param $arr
-     * @param string[]|string $keys
-     * @return array
-     */
-    public static function copyFields($arr, $keys): array
+    public static function copyFields($arr, array|string $keys): array
     {
         if (is_string($keys) && $keys !== '') {
             $keys = preg_split(Regexp::COMMA_SEP, $keys);
@@ -447,13 +432,10 @@ final class ArrayUtils
             return $value;
         }
 
-        switch ($securityMode) {
-            case SecurityMode::HTML_PURIFY:
-                return HtmlPurifier::purify($value);
-            case SecurityMode::STRIP_TAGS:
-                return strip_tags($value);
-            default:
-                return $value;
-        }
+        return match ($securityMode) {
+            SecurityMode::HTML_PURIFY => HtmlPurifier::purify($value),
+            SecurityMode::STRIP_TAGS => strip_tags($value),
+            default => $value,
+        };
     }
 }

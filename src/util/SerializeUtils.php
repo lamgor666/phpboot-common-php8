@@ -15,7 +15,7 @@ final class SerializeUtils
         if (extension_loaded('igbinary')) {
             try {
                 $contents = igbinary_serialize($arg0);
-            } catch (Throwable $ex) {
+            } catch (Throwable) {
                 $contents = '';
             }
 
@@ -24,7 +24,7 @@ final class SerializeUtils
 
         try {
             $contents = serialize($arg0);
-        } catch (Throwable $ex) {
+        } catch (Throwable) {
             $contents = '';
         }
 
@@ -42,7 +42,7 @@ final class SerializeUtils
 
             try {
                 return igbinary_unserialize($contents);
-            } catch (Throwable $ex) {
+            } catch (Throwable) {
                 return null;
             }
         }
@@ -51,7 +51,7 @@ final class SerializeUtils
 
         try {
             return unserialize($contents);
-        } catch (Throwable $ex) {
+        } catch (Throwable) {
             return null;
         }
     }

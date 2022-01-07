@@ -25,20 +25,16 @@ final class CollectionUtils
 
     public static function object2array(Collection $list): Collection
     {
-        return $list->map(function ($it) {
-            return is_array($it) ? $it : get_object_vars($it);
-        });
+        return $list->map(fn($it) => is_array($it) ? $it : get_object_vars($it));
     }
 
     /**
      * @param Collection $list
-     * @param string[]|string $keys
+     * @param string|string[] $keys
      * @return Collection
      */
-    public static function removeKeys(Collection $list, $keys): Collection
+    public static function removeKeys(Collection $list, array|string $keys): Collection
     {
-        return $list->map(function ($it) use ($keys) {
-            return ArrayUtils::removeKeys($it, $keys);
-        });
+        return $list->map(fn($it) => ArrayUtils::removeKeys($it, $keys));
     }
 }

@@ -10,22 +10,22 @@ final class Pager
     /**
      * @var int
      */
-    private $recordTotal;
+    private int $recordTotal;
 
     /**
      * @var int
      */
-    private $currentPage;
+    private int $currentPage;
 
     /**
      * @var int
      */
-    private $pageSize;
+    private int $pageSize;
 
     /**
      * @var int
      */
-    private $pageStep;
+    private int $pageStep;
 
     private function __construct(int... $args)
     {
@@ -65,7 +65,7 @@ final class Pager
      * @param string[]|string|null $includeFields
      * @return array
      */
-    public function toMap($includeFields = null): array
+    public function toMap(array|string|null $includeFields = null): array
     {
         if (is_string($includeFields) && !empty($includeFields)) {
             $includeFields = preg_split(Regexp::COMMA_SEP, $includeFields);

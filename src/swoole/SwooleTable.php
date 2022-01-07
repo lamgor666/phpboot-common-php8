@@ -11,22 +11,22 @@ final class SwooleTable
     /**
      * @var string
      */
-    private static $_cacheTableName = 'tblCache';
+    private static string $_cacheTableName = 'tblCache';
 
     /**
      * @var string
      */
-    private static $_redisLockTableName = 'tblRedisLock';
+    private static string $_redisLockTableName = 'tblRedisLock';
 
     /**
      * @var string
      */
-    private static $_ratelimiterTableName = 'tblRatelimiter';
+    private static string $_ratelimiterTableName = 'tblRatelimiter';
 
     /**
      * @var string
      */
-    private static $_wsTableName = 'tblWsConnections';
+    private static string $_wsTableName = 'tblWsConnections';
 
     private function __construct()
     {
@@ -177,16 +177,11 @@ final class SwooleTable
 
     private static function parseColumnType(int $type): int
     {
-        switch ($type) {
-            case self::COLUMN_TYPE_INT:
-                /** @noinspection PhpFullyQualifiedNameUsageInspection */
-                return \Swoole\Table::TYPE_INT;
-            case self::COLUMN_TYPE_FLOAT:
-                /** @noinspection PhpFullyQualifiedNameUsageInspection */
-                return \Swoole\Table::TYPE_FLOAT;
-            default:
-                /** @noinspection PhpFullyQualifiedNameUsageInspection */
-                return \Swoole\Table::TYPE_STRING;
-        }
+        /** @noinspection PhpFullyQualifiedNameUsageInspection */
+        return match ($type) {
+            self::COLUMN_TYPE_INT => \Swoole\Table::TYPE_INT,
+            self::COLUMN_TYPE_FLOAT => \Swoole\Table::TYPE_FLOAT,
+            default => \Swoole\Table::TYPE_STRING,
+        };
     }
 }
