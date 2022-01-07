@@ -1,0 +1,26 @@
+{
+  "name": "lamgor666/phpboot-common",
+  "description": "common libraries for lamgor666/phpboot framework",
+  "keywords": [],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Simon.Ye",
+      "email": "samlinye@163.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "phpboot\\common\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.3.0",
+    "dflydev/apache-mime-types": "^1.0.1",
+    "ezyang/htmlpurifier": "^4.13.0",
+    "lcobucci/jwt": "^3.4.6",
+    "illuminate/support": "8.66.0",
+    "nesbot/carbon": "^2.53.1",
+    "doctrine/annotations": "^1.13.2"
+  }
+}
