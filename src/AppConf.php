@@ -2,7 +2,6 @@
 
 namespace phpboot\common;
 
-use phpboot\common\swoole\Swoole;
 use phpboot\common\util\ArrayUtils;
 use phpboot\common\util\StringUtils;
 
@@ -24,13 +23,7 @@ final class AppConf
     
     public static function setData(array $data): void
     {
-        if (Swoole::inCoroutineMode(true)) {
-            $key = 'worker' . Swoole::getWorkerId();
-        } else {
-            $key = 'noworker';
-        }
-
-        self::$data[$key] = $data;
+        self::$data = $data;
     }
 
     public static function get(string $key)
@@ -121,7 +114,7 @@ final class AppConf
     private static function getValueInternal(string $mapKey, ?array $data = null)
     {
         if (empty($data)) {
-            $data = self::getData();
+            $data = self::$data;
         }
 
         if (!is_array($data) || empty($data)) {
@@ -143,17 +136,5 @@ final class AppConf
         }
 
         return null;
-    }
-
-    private static function getData(): array
-    {
-        if (Swoole::inCoroutineMode(true)) {
-            $key = 'worker' . Swoole::getWorkerId();
-        } else {
-            $key = 'noworker';
-        }
-
-        $data = self::$data[$key];
-        return is_array($data) ? $data : [];
     }
 }
